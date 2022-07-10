@@ -13,9 +13,15 @@ app.get('/', (req, res) => {
 
 app.get('/musicians', async (req, res) => {
     const scraper = new AllMusiciansScraper();
-    const musicians = await scraper.scrapeMusicians('https://en.wikipedia.org/wiki/List_of_jazz_musicians')
-    console.log(musicians.length)
-    res.send({ musicians })
+    try {
+        const musicians = await scraper.scrapeMusicians('https://en.wikipedia.org/wiki/List_of_jazz_musicians')
+        console.log("returned arr length: ", musicians.length)
+        res.json(musicians)
+
+    } catch (err) {
+        console.log(err)
+    }
+
 
 })
 
